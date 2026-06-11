@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>To-Do App</title>
+  <link rel="stylesheet" href="/static/css/style.css"/>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"/>
+</head>
+<body>
+  <div class="bg-blobs">
+    <div class="blob blob1"></div>
+    <div class="blob blob2"></div>
+    <div class="blob blob3"></div>
+  </div>
+
+  <div class="container">
+    <!-- Header Card -->
+    <div class="card header-card">
+      <div class="header-top">
+        <div>
+          <h1><i class="fa-solid fa-check-double"></i> My To-Do List</h1>
+          <p class="subtitle">Stay organised, stay productive</p>
+        </div>
+        <div class="stats-row">
+          <div class="stat-chip" id="stat-total"><span id="count-total">0</span> Total</div>
+          <div class="stat-chip done" id="stat-done"><span id="count-done">0</span> Done</div>
+          <div class="stat-chip pending" id="stat-pending"><span id="count-pending">0</span> Pending</div>
+        </div>
+      </div>
+      <!-- Progress bar -->
+      <div class="progress-wrap">
+        <div class="progress-bar"><div class="progress-fill" id="progress-fill"></div></div>
+        <span class="progress-label" id="progress-label">0% complete</span>
+      </div>
+    </div>
+
+    <!-- Add Task Card -->
+    <div class="card add-card">
+      <h2><i class="fa-solid fa-plus"></i> Add New Task</h2>
+      <div class="add-form">
+        <div class="input-group">
+          <input type="text" id="todo-input" placeholder="What needs to be done?" autocomplete="off"/>
+          <button id="add-btn" onclick="addTodo()"><i class="fa-solid fa-plus"></i> Add Task</button>
+        </div>
+        <div class="options-row">
+          <div class="select-wrap">
+            <i class="fa-solid fa-flag"></i>
+            <select id="priority-select">
+              <option value="low">Low Priority</option>
+              <option value="medium" selected>Medium Priority</option>
+              <option value="high">High Priority</option>
+            </select>
+          </div>
+          <div class="select-wrap">
+            <i class="fa-solid fa-tag"></i>
+            <select id="category-select">
+              <option value="General">General</option>
+              <option value="Work">Work</option>
+              <option value="Personal">Personal</option>
+              <option value="Study">Study</option>
+              <option value="Health">Health</option>
+            </select>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Filter Bar -->
+    <div class="card filter-card">
+      <div class="filter-row">
+        <div class="filter-group">
+          <button class="filter-btn active" data-filter="all" onclick="setFilter('all',this)">All</button>
+          <button class="filter-btn" data-filter="pending" onclick="setFilter('pending',this)">Pending</button>
+          <button class="filter-btn" data-filter="completed" onclick="setFilter('completed',this)">Completed</button>
+        </div>
+        <button class="clear-btn" onclick="clearCompleted()"><i class="fa-solid fa-trash"></i> Clear Done</button>
+      </div>
+    </div>
+
+    <!-- Todo List -->
+    <div id="todo-list" class="todo-list"></div>
+
+    <!-- Empty State -->
+    <div id="empty-state" class="card empty-card" style="display:none;">
+      <i class="fa-regular fa-clipboard"></i>
+      <p>No tasks here yet.<br>Add one above!</p>
+    </div>
+  </div>
+
+  <!-- Edit Modal -->
+  <div id="modal-overlay" class="modal-overlay" onclick="closeModal()">
+    <div class="modal-card" onclick="event.stopPropagation()">
+      <h3><i class="fa-solid fa-pen"></i> Edit Task</h3>
+      <input type="text" id="edit-input" placeholder="Task title"/>
+      <div class="options-row">
+        <div class="select-wrap">
+          <i class="fa-solid fa-flag"></i>
+          <select id="edit-priority">
+            <option value="low">Low</option>
+            <option value="medium">Medium</option>
+            <option value="high">High</option>
+          </select>
+        </div>
+        <div class="select-wrap">
+          <i class="fa-solid fa-tag"></i>
+          <select id="edit-category">
+            <option value="General">General</option>
+            <option value="Work">Work</option>
+            <option value="Personal">Personal</option>
+            <option value="Study">Study</option>
+            <option value="Health">Health</option>
+          </select>
+        </div>
+      </div>
+      <div class="modal-actions">
+        <button onclick="saveEdit()"><i class="fa-solid fa-floppy-disk"></i> Save</button>
+        <button class="cancel-btn" onclick="closeModal()">Cancel</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="/static/js/app.js"></script>
+</body>
+</html>
